@@ -20,7 +20,7 @@ func main() {
 	// "eg:", utils.go, home_handler
 
 	// Constants
-	// CamelCase or PascalCase (not UPPERCASE)
+	// camelCase (unexported) or PascalCase (exported) (not UPPERCASE)
 	//   e.g., const MaxItems = 100
 
 	// additional notes
