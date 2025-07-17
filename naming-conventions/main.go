@@ -17,7 +17,7 @@ func main() {
 	// all lowercase
 	// no hyphens because they are invalid in import paths
 	// use an underscore for better readability
-	// "eg:", utils.go, home_handler
+	// "eg:", utils.go, home_handler.go
 
 	// Constants
 	// camelCase (unexported) or PascalCase (exported) (not UPPERCASE)
