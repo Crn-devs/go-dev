@@ -1,0 +1,82 @@
+
+
+// Librarys 
+
+// numeric + linear algebra
+import (
+  "math"
+  "gonum.org/v1/gonum/mat"
+  "gonum.org/v1/gonum/floats"
+  "gonum.org/v1/gonum/stat"
+  "gonum.org/v1/gonum/integrate/quad" // numerical integration
+  "gonum.org/v1/gonum/diff/fd"        // numerical differentiation
+  "gonum.org/v1/gonum/optimize"       // optimization / root-finding by minimization
+  "gonum.org/v1/gonum/stat/distuv"    // distributions & RNG
+  "gonum.org/v1/gonum/dsp/fourier"    // FFTs if you need them
+)
+
+// plotting
+import (
+  "gonum.org/v1/plot"
+  "gonum.org/v1/plot/plotter"
+  "gonum.org/v1/plot/vg"
+)
+
+// notebook markdown/LaTeX
+import "github.com/janpfeifer/gonb/gonbui"
+
+// optional DataFrame
+import "github.com/go-gota/gota/dataframe"
+
+
+
+// full go script 
+
+package main
+
+import (
+	"fmt" // standard output
+
+	// numerical & linear algebra (NumPy equivalent)
+	"gonum.org/v1/gonum/mat"
+
+	// data frames (pandas equivalent)
+
+	// plotting (matplotlib equivalent)
+	"gonum.org/v1/plot"
+	"gonum.org/v1/plot/plotter"
+	"gonum.org/v1/plot/vg"
+
+	// notebook-only: markdown/latex output
+	"github.com/janpfeifer/gonb/gonbui"
+)
+
+func main() {
+	// quick demo so you can test
+	gonbui.DisplayMarkdown(`
+### Quick Check
+
+Inline math $x^2$, and block:
+
+$$f(x) = \int_{-\infty}^{\infty} e^{-x^2} dx$$
+`)
+
+	// simple matrix with gonum
+	A := mat.NewDense(2, 2, []float64{1, 2, 3, 4})
+	fmt.Printf("Matrix A:\n%v\n\n", mat.Formatted(A))
+
+	var inv mat.Dense
+	inv.Inverse(A)
+	fmt.Printf("Inverse of A:\n%v\n\n", mat.Formatted(&inv))
+
+	// simple plot
+	pts := plotter.XYs{{X: 0, Y: 0}, {X: 0, Y: 1}, {X: 0.5, Y: 1}, {X: 0.5, Y: 0.6}, {X: 0, Y: 0.6}}
+	p := plot.New()
+	line, _ := plotter.NewLine(pts)
+	p.Add(line)
+	p.Title.Text = "y = x^2"
+	p.X.Label.Text = "x"
+	p.Y.Label.Text = "y"
+	_ = p.Save(4*vg.Inch, 3*vg.Inch, "plot.png")
+	fmt.Println("Saved plot.png")
+}
